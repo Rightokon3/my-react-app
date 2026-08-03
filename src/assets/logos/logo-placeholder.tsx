@@ -1,14 +1,18 @@
 import type { JSX } from "react";
-import  logo from "../../assets/Pinnacle_Logo.webp";
+import logo from "../../assets/Pinnacle_Logo.webp";
+import sponser from "../../assets/images/neuro-star-logo-300x116.webp";
 
 interface LogoPlaceholderProps {
   className?: string;
 }
-
-/** Simple inline SVG logo mark — replace with your real brand mark later. */
-function LogoPlaceholder({ className = "h-9 w-auto" }: LogoPlaceholderProps): JSX.Element {
+interface SponserLogoProps {
+  className?: string;
+}
+function LogoPlaceholder({
+  className = "h-9 w-auto",
+}: LogoPlaceholderProps): JSX.Element {
   return (
-     <img
+    <img
       src={logo}
       alt="Radiant Mind Behavioral Health"
       className={className}
@@ -16,4 +20,17 @@ function LogoPlaceholder({ className = "h-9 w-auto" }: LogoPlaceholderProps): JS
   );
 }
 
+function SponserLogo({
+  className = "h-9 w-auto",
+}: SponserLogoProps): JSX.Element {
+  return (
+    <img
+      src={sponser}
+      alt="Sponsor Logo"
+      className={className}
+    />
+  );
+}
+
+export { SponserLogo };
 export default LogoPlaceholder;

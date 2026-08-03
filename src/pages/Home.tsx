@@ -4,14 +4,16 @@ import StaffAnnouncement from "../components/Hero/StaffAnnouncement";
 import FeatureBanner from "../components/Features/FeatureBanner";
 import WhyChooseUs from "../components/Features/WhyChooseUs";
 import FeatureIcons from "../components/Features/FeatureIcons";
-import Services from "../components/Services/Services";
-import BrainHealthSeries from "../components/BrainHealthSeries/BrainHealthSeries";
 import Testimonials from "../components/Testimonials/Testimonials";
 import CTA from "../components/CTA/CTA";
-import Specialists from "../components/Specialists/Specialists";
 import About from "../components/About/About";
+import Services from "../components/Services/Services";
+import ServicesCarousel from "../components/Services/ServiceHighlightsCarousel";
+import Specialists from "../components/Specialists/Specialists";
+import SupplementBrandsBanner from "../components/Dispensary/SupplementBrandsBanner";
 import News from "../components/News/News";
-import ContactSection from "../components/Contact/ContactSection";
+import QuickFactsBand from "../components/QuickFacts/QuickFactsBand";
+import Contacts from "../components/Contact/ContactSection";
 
 function Home(): JSX.Element {
   return (
@@ -21,14 +23,16 @@ function Home(): JSX.Element {
       <FeatureBanner />
       <WhyChooseUs />
       <FeatureIcons />
-      <Services />
-      <BrainHealthSeries />
+       <Services />
       <Testimonials />
       <CTA />
-      <Specialists />
       <About />
+      <ServicesCarousel />
+      <Specialists />
+      <SupplementBrandsBanner />
       <News />
-      <ContactSection />
+      <QuickFactsBand />
+      <Contacts />
     </>
   );
 }

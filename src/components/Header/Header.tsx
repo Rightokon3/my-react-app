@@ -1,5 +1,6 @@
 import { useState, useEffect, type JSX } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { NavLink as RouterNavLink, Link } from "react-router-dom";
 import {
   FiSearch,
   FiMenu,
@@ -12,16 +13,43 @@ import {
 } from "react-icons/fi";
 import LogoPlaceholder from "../../assets/logos/logo-placeholder";
 import SearchOverlay from "./SearchOverlay";
-import type { NavLink as NavLinkType } from "../../types";
 
-const NAV_LINKS: (NavLinkType & { hasDropdown?: boolean })[] = [
-  { label: "Home", href: "#home" },
-  { label: "Providers", href: "#specialists" },
-  { label: "Services", href: "#services", hasDropdown: true },
-  { label: "FAQs", href: "#" },
-  { label: "Blog", href: "#news" },
-  { label: "Contact", href: "#contact-us" },
-  { label: "Dispensary", href: "#", hasDropdown: true },
+interface SubLink {
+  label: string;
+  to: string;
+}
+
+interface HeaderNavLink {
+  label: string;
+  to: string;
+  submenu?: SubLink[];
+}
+
+const NAV_LINKS: HeaderNavLink[] = [
+  { label: "Home", to: "/" },
+  { label: "Providers", to: "/providers" },
+  {
+    label: "Services",
+    to: "/services",
+    submenu: [
+      { label: "Medication Management", to: "/services#medication-management" },
+      { label: "TMS Treatments", to: "/services#tms-treatments" },
+      { label: "Individual Psychotherapy", to: "/services#individual-psychotherapy" },
+      { label: "Spravato", to: "/services#spravato" },
+      { label: "ADHD Testing", to: "/services#adhd-testing" },
+    ],
+  },
+  { label: "FAQs", to: "/faqs" },
+  { label: "Blog", to: "/blog" },
+  { label: "Contact", to: "/contact" },
+  {
+    label: "Dispensary",
+    to: "/dispensary",
+    submenu: [
+      { label: "Cart", to: "/cart" },
+      { label: "Checkout", to: "/checkout" },
+    ],
+  },
 ];
 
 interface IconButtonProps {
@@ -55,6 +83,8 @@ function Header(): JSX.Element {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [cartCount] = useState<number>(0);
+  // which mobile accordion sections are expanded — several can be open at once
+  const [openMobileSections, setOpenMobileSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const handleScroll = (): void => setIsScrolled(window.scrollY > 12);
@@ -75,6 +105,23 @@ function Header(): JSX.Element {
     setIsSearchOpen((open) => !open);
   };
 
+  const toggleMobileSection = (label: string): void => {
+    setOpenMobileSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) {
+        next.delete(label);
+      } else {
+        next.add(label);
+      }
+      return next;
+    });
+  };
+
+  const closeMobileNav = (): void => {
+    setIsMobileNavOpen(false);
+    setOpenMobileSections(new Set());
+  };
+
   return (
     <header
       className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-300 border-b-[3px] border-primary ${
@@ -82,22 +129,86 @@ function Header(): JSX.Element {
       }`}
     >
       <div className="flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-3">
-        <a href="#home" aria-label="Go to homepage" className="flex-shrink-0">
+        <Link to="/" aria-label="Go to homepage" className="flex-shrink-0">
           <LogoPlaceholder />
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden lg:flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="flex items-center gap-1 text-sm text-ink font-medium hover:text-primary transition-colors relative group"
-            >
-              {link.label}
-              {link.hasDropdown && <FiChevronDown size={14} aria-hidden />}
-              <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.submenu ? (
+              // desktop dropdown — opens on hover (mouse) and on focus (keyboard), no click required
+              <div key={link.label} className="relative group">
+                <RouterNavLink
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `flex items-center gap-1 text-sm font-medium transition-colors relative ${
+                      isActive ? "text-primary" : "text-ink group-hover:text-primary"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.label}
+                      <FiChevronDown
+                        size={14}
+                        aria-hidden
+                        className="transition-transform duration-200 group-hover:rotate-180"
+                      />
+                      <span
+                        className={`absolute left-0 -bottom-1 h-0.5 bg-primary transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </>
+                  )}
+                </RouterNavLink>
+
+                {/* invisible bridge so the pointer can travel from link to panel without a gap */}
+                <div className="absolute left-0 top-full h-2 w-full" />
+
+                <div
+                  className="absolute left-0 top-full pt-2 opacity-0 invisible translate-y-1
+                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                    focus-within:opacity-100 focus-within:visible focus-within:translate-y-0
+                    transition-all duration-200 z-50"
+                >
+                  <div className="min-w-[220px] rounded-xl bg-white shadow-card border border-gray-100 py-2">
+                    {link.submenu.map((sub) => (
+                      <Link
+                        key={sub.label}
+                        to={sub.to}
+                        className="block px-5 py-2.5 text-sm text-ink hover:bg-surface-blue hover:text-primary transition-colors whitespace-nowrap"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <RouterNavLink
+                key={link.label}
+                to={link.to}
+                end={link.to === "/"}
+                className={({ isActive }) =>
+                  `flex items-center gap-1 text-sm font-medium transition-colors relative group ${
+                    isActive ? "text-primary" : "text-ink hover:text-primary"
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    <span
+                      className={`absolute left-0 -bottom-1 h-0.5 bg-primary transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </>
+                )}
+              </RouterNavLink>
+            )
+          )}
 
           <button
             type="button"
@@ -186,43 +297,103 @@ function Header(): JSX.Element {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsMobileNavOpen(false)}
+              onClick={closeMobileNav}
             />
             <motion.nav
               key="drawer"
               aria-label="Mobile"
-              className="fixed top-0 right-0 h-full w-72 bg-white z-50 shadow-card lg:hidden flex flex-col gap-1 p-6 pt-8 overflow-y-auto"
+              className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 shadow-card lg:hidden flex flex-col p-0 overflow-y-auto"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
             >
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={() => setIsMobileNavOpen(false)}
-                className="self-end mb-4 h-10 w-10 rounded-full flex items-center justify-center hover:bg-surface-blue"
-              >
-                <FiX size={22} />
-              </button>
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setIsMobileNavOpen(false)}
-                  className="flex items-center gap-1.5 py-3 px-2 text-ink font-medium border-b border-gray-100 hover:text-primary transition-colors"
+              <div className="flex items-center justify-between px-5 pt-6 pb-2">
+                <LogoPlaceholder className="h-8 w-auto" />
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={closeMobileNav}
+                  className="h-10 w-10 rounded-full flex items-center justify-center hover:bg-surface-blue"
                 >
-                  {link.label}
-                  {link.hasDropdown && <FiChevronDown size={14} aria-hidden />}
-                </a>
-              ))}
-              <a
-                href="#appointment"
-                onClick={() => setIsMobileNavOpen(false)}
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
-              >
-                Book Appointment
-              </a>
+                  <FiX size={22} />
+                </button>
+              </div>
+
+              <div className="flex flex-col">
+                {NAV_LINKS.map((link) => {
+                  if (!link.submenu) {
+                    return (
+                      <RouterNavLink
+                        key={link.label}
+                        to={link.to}
+                        end={link.to === "/"}
+                        onClick={closeMobileNav}
+                        className={({ isActive }) =>
+                          `px-5 py-3.5 text-sm font-semibold uppercase tracking-wide border-b border-gray-100 transition-colors ${
+                            isActive ? "text-primary" : "text-ink hover:text-primary"
+                          }`
+                        }
+                      >
+                        {link.label}
+                      </RouterNavLink>
+                    );
+                  }
+
+                  const isOpen = openMobileSections.has(link.label);
+                  return (
+                    <div key={link.label} className="border-b border-gray-100">
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onClick={() => toggleMobileSection(link.label)}
+                        className={`w-full flex items-center justify-between px-5 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors ${
+                          isOpen ? "bg-primary text-white" : "text-ink hover:text-primary"
+                        }`}
+                      >
+                        {link.label}
+                        <FiChevronDown
+                          size={16}
+                          aria-hidden
+                          className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden bg-surface-blue/40"
+                          >
+                            {link.submenu.map((sub) => (
+                              <Link
+                                key={sub.label}
+                                to={sub.to}
+                                onClick={closeMobileNav}
+                                className="block pl-8 pr-5 py-3 text-sm text-primary hover:underline border-t border-white"
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="p-5">
+                <Link
+                  to="/#appointment"
+                  onClick={closeMobileNav}
+                  className="inline-flex w-full items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
+                >
+                  Book Appointment
+                </Link>
+              </div>
             </motion.nav>
           </>
         )}

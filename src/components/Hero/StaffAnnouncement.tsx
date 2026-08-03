@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { motion } from "framer-motion";
-import { doctorPlaceholder } from "../../assets/images/placeholders";
+import { doctorPlaceholderImage } from "../../assets/images/placeholders";
 
 /** Large highlight banner introducing a new staff member — sits directly under the appointment card. */
 function StaffAnnouncement(): JSX.Element {
@@ -26,7 +26,7 @@ function StaffAnnouncement(): JSX.Element {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          src={doctorPlaceholder}
+          src={doctorPlaceholderImage}
           alt="Portrait of Dr. Amara Bello"
           className="absolute right-4 sm:right-10 lg:right-16 -top-8 sm:-top-12 z-10 h-52 sm:h-72 lg:h-80 w-40 sm:w-56 lg:w-64 rounded-2xl object-cover shadow-card"
           loading="lazy"

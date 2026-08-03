@@ -8,9 +8,9 @@ import {
 import type { SpecialistItem } from "../../types";
 
 const SPECIALISTS: SpecialistItem[] = [
-  { id: "sp1", name: "Dr. A. Whitfield", title: "APRN, PMHNP-BC", image: doctor1Placeholder },
-  { id: "sp2", name: "Dr. R. Kanu", title: "MD, FAPA", image: doctor2Placeholder },
-  { id: "sp3", name: "Dr. S. Bello", title: "APRN, PMHNP-BC", image: doctor3Placeholder },
+  { id: "sp1", name: "Tami Kittlesonrn", title: "APRN, PMHNP-BC", image: doctor1Placeholder },
+  { id: "sp2", name: "Olukayode Awosika", title: "MD, FAPA", image: doctor2Placeholder },
+  { id: "sp3", name: "Fatuma Guhadrn", title: "APRN, PMHNP-BC", image: doctor3Placeholder },
 ];
 
 function Specialists(): JSX.Element {

@@ -1,18 +1,21 @@
 import type { JSX } from "react";
+import { Link } from "react-router-dom";
 import { FiFacebook, FiInstagram, FiTwitter, FiMapPin, FiPhone, FiNavigation } from "react-icons/fi";
-import LogoPlaceholder from "../../assets/logos/logo-placeholder";
-import type { FooterLinkGroup, NavLink as NavLinkType } from "../../types";
+import LogoPlaceholder, { SponserLogo } from "../../assets/logos/logo-placeholder";
 
-const IMPORTANT_LINKS: NavLinkType[] = [
-  { label: "Home", href: "#home" },
-  { label: "Providers", href: "#specialists" },
-  { label: "Services", href: "#services" },
-  { label: "Contact Us", href: "#contact-us" },
-  { label: "News & Articles", href: "#news" },
-  { label: "Privacy", href: "#" },
+interface FooterLink {
+  label: string;
+  to: string;
+}
+
+const IMPORTANT_LINKS: FooterLink[] = [
+  { label: "Home", to: "/" },
+  { label: "Providers", to: "/providers" },
+  { label: "Services", to: "/services" },
+  { label: "Contact Us", to: "/contact" },
+  { label: "News & Articles", to: "/blog" },
+  { label: "Privacy", to: "/privacy" },
 ];
-
-const FOOTER: FooterLinkGroup = { heading: "Important Links", links: IMPORTANT_LINKS };
 
 function Footer(): JSX.Element {
   return (
@@ -20,11 +23,11 @@ function Footer(): JSX.Element {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         {/* brand column */}
         <div className="lg:col-span-2 flex flex-col gap-5">
-          <LogoPlaceholder className="h-10 w-auto brightness-0 invert" />
+           <LogoPlaceholder className="w-[280px] h-auto" />
 
           {/* generic treatment-partner badge — placeholder, not a real brand mark */}
           <div className="flex flex-wrap items-center gap-4">
-            <p className="text-lg font-bold tracking-wide">TMS Partner Network</p>
+             <SponserLogo  />
             <div className="border border-white/40 rounded-lg px-4 py-3 max-w-xs">
               <p className="text-sm italic leading-snug">
                 &ldquo;We&apos;re proud to be part of a top-rated TMS treatment
@@ -53,19 +56,19 @@ function Footer(): JSX.Element {
         </div>
 
         {/* important links */}
-        <nav aria-label={FOOTER.heading}>
-          <h3 className="font-bold text-lg mb-4">{FOOTER.heading}</h3>
+        <nav aria-label="Important Links">
+          <h3 className="font-bold text-lg mb-4">Important Links</h3>
           <ul className="flex flex-col gap-2.5">
-            {FOOTER.links.map((link, i) => (
+            {IMPORTANT_LINKS.map((link, i) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.to}
                   className={`text-sm transition-colors ${
                     i === 0 ? "text-surface-blue underline" : "text-white/85 hover:text-white"
                   }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

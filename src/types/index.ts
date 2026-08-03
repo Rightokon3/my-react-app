@@ -11,6 +11,7 @@ export interface AppointmentFormData {
 
 export interface ServiceItem {
   id: string;
+  slug: string;
   icon: string;
   title: string;
   description: string;

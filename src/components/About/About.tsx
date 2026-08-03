@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-import { featuredDoctorPlaceholder } from "../../assets/images/placeholders";
+import { featuresPlaceholder } from "../../assets/images/placeholders";
 
 function About(): JSX.Element {
   return (
@@ -12,7 +12,7 @@ function About(): JSX.Element {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          src={featuredDoctorPlaceholder}
+          src={featuresPlaceholder}
           alt="Practice founder in the clinic"
           className="w-full rounded-xl2 shadow-card object-cover aspect-[3/4] lg:order-1"
           loading="lazy"
@@ -26,13 +26,10 @@ function About(): JSX.Element {
           className="lg:order-2"
         >
           <h2 className="text-2xl sm:text-3xl font-semibold text-primary-dark mb-4">
-            Founded On Exceptional, Compassionate Care
+Pinnacle Behavioral Healthcare was founded by Dr. Olukayode Awosika in July 2011
           </h2>
           <p className="text-ink-soft leading-relaxed mb-6">
-            Our practice was built around one idea: every person deserves mental
-            health care that treats them as a whole individual, not a diagnosis. We
-            offer a full range of services, from medication management to advanced
-            treatment options for depression and ADHD.
+Exceptional Care by Compassionate People We are dedicated to providing the highest quality mental healthcare services. We offer a full range of psychiatric services, from medication management to treatment options for depression and ADHD diagnostic testing.
           </p>
           <a
             href="#appointment"

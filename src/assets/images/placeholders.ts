@@ -1,9 +1,18 @@
-/**
- * Lightweight inline SVG placeholders (data URIs).
- * Swap these for real photography later — every component
- * that uses one accepts an `image` prop / import so replacement
- * is a one-line change.
- */
+import heroImg  from "./Group-1177-1.webp";
+import doctor1 from "./Dara-Awosika-1-2-1024x328.png";
+import promotion from "./WhatsApp-Image-2026-04-03-at-3.39.08-PM-1-819x1024.jpeg";
+import about1 from "./20240731_142605-1.webp";
+import features from "./PinnacleBH2024-1-1-1-300x232-1.webp";
+import special1 from "./Image_fx-1.png";
+import medication from "./Image_fx-4.png";
+import individual from "./Image_fx-2.png";
+import spravato  from "./Image_fx.png";
+import adhd from "./PinnacleBH2024_1_-00101_1_1-1.webp";
+import doctor2  from  "./Headshot-Olukayode-Awosika-B.webp";
+import doctor3  from  "./Mask-group-5.webp";
+import supplements from "./Mask-group-2-1.webp";
+import news from "./Health.jpeg";
+import about2 from "./Image_fx-3.png"
 
 const svgPlaceholder = (label: string, w: number, h: number, bg = "#CFE7F7"): string => {
   const svg = `
@@ -14,14 +23,19 @@ const svgPlaceholder = (label: string, w: number, h: number, bg = "#CFE7F7"): st
     </svg>`;
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 };
-
-export const heroPlaceholder = svgPlaceholder("Hero Image", 1200, 800, "#BFE0F4");
-export const aboutPlaceholder = svgPlaceholder("About Image", 900, 700, "#CFE7F7");
-export const servicePlaceholder = svgPlaceholder("Service Image", 640, 480, "#D9EEFB");
-export const doctorPlaceholder = svgPlaceholder("Doctor Photo", 480, 560, "#E4F2FB");
-export const doctor1Placeholder = svgPlaceholder("Specialist 1", 480, 560, "#E4F2FB");
-export const doctor2Placeholder = svgPlaceholder("Specialist 2", 480, 560, "#E4F2FB");
-export const doctor3Placeholder = svgPlaceholder("Specialist 3", 480, 560, "#E4F2FB");
-export const newsPlaceholder = svgPlaceholder("Article Image", 640, 420, "#DCEEFA");
-export const bannerPlaceholder = svgPlaceholder("Promotional Banner", 1200, 300, "#FFFFFF");
-export const featuredDoctorPlaceholder = svgPlaceholder("Featured Specialist", 700, 900, "#E4F2FB");
+export const aboutPlaceholder1 = about2;
+export const adhdPlaceholder = adhd;
+export const spravatoPlaceholder = spravato;
+export const individualPlaceholder = individual;
+export const medicationPlaceholder = medication;
+export const heroPlaceholder = heroImg;
+export const aboutPlaceholder = about1;
+export const specialPlaceholder = special1;
+export const doctorPlaceholderImage = doctor1;
+export const doctor1Placeholder = doctor1;
+export const doctor2Placeholder = doctor2;
+export const doctor3Placeholder = doctor3;
+export const supplementsPlaceholder = supplements;
+export const newsPlaceholder = news;
+export const promotionPlaceholder = promotion;
+export const featuresPlaceholder = features;

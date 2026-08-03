@@ -25,7 +25,7 @@ function WhyChooseUs(): JSX.Element {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <h2 className="text-2xl sm:text-3xl font-semibold text-primary-dark mb-4">
-            Why Choose Radiant Mind
+          Why Choose Pinnacle
           </h2>
           <p className="text-ink-soft leading-relaxed mb-6">
             Accurate diagnosis of mental health disorders can be difficult. We use

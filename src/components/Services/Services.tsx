@@ -1,12 +1,13 @@
 import type { JSX } from "react";
 import { motion } from "framer-motion";
 import { FiActivity, FiHeart, FiZap, FiTarget, FiCheckSquare } from "react-icons/fi";
-import { aboutPlaceholder } from "../../assets/images/placeholders";
+import { aboutPlaceholder1 } from "../../assets/images/placeholders";
 import type { ServiceItem } from "../../types";
 
 const SERVICES: ServiceItem[] = [
   {
     id: "s1",
+    slug: "medication-management",
     icon: "pill",
     title: "Medication Management",
     description:
@@ -14,6 +15,7 @@ const SERVICES: ServiceItem[] = [
   },
   {
     id: "s2",
+    slug: "individual-psychotherapy",
     icon: "heart",
     title: "Individual Psychotherapy",
     description:
@@ -21,6 +23,7 @@ const SERVICES: ServiceItem[] = [
   },
   {
     id: "s3",
+    slug: "tms-treatments",
     icon: "zap",
     title: "Advanced TMS Therapy",
     description:
@@ -28,6 +31,7 @@ const SERVICES: ServiceItem[] = [
   },
   {
     id: "s4",
+    slug: "spravato",
     icon: "target",
     title: "Spravato Treatment",
     description:
@@ -35,6 +39,7 @@ const SERVICES: ServiceItem[] = [
   },
   {
     id: "s5",
+    slug: "adhd-testing",
     icon: "check",
     title: "ADHD Assessment",
     description:
@@ -57,7 +62,7 @@ function Services(): JSX.Element {
       <div className="order-1 lg:order-2 h-64 sm:h-80 lg:h-auto">
         <div className="lg:sticky lg:top-20 h-64 sm:h-80 lg:h-[calc(100vh-5rem)]">
           <img
-            src={aboutPlaceholder}
+            src={aboutPlaceholder1}
             alt="Patient in a calm home setting"
             className="h-full w-full object-cover"
             loading="lazy"
@@ -81,11 +86,12 @@ function Services(): JSX.Element {
           {SERVICES.map((service, i) => (
             <motion.div
               key={service.id}
+              id={service.slug}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="text-white max-w-xl"
+              className="text-white max-w-xl scroll-mt-28"
             >
               <span className="mb-3 inline-flex text-white">{ICONS[service.icon]}</span>
               <h3 className="text-xl font-bold mb-2">{service.title}</h3>

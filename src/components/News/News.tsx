@@ -25,16 +25,6 @@ const NEWS: NewsItem[] = [
 function News(): JSX.Element {
   return (
     <section id="news" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
-      <motion.h2
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.5 }}
-        className="text-2xl sm:text-3xl font-semibold text-primary-dark mb-10 text-center"
-      >
-        News &amp; Articles
-      </motion.h2>
-
       <div className="grid sm:grid-cols-2 gap-6">
         {NEWS.map((article, i) => (
           <motion.article
