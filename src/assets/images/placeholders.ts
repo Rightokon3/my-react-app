@@ -14,15 +14,7 @@ import supplements from "./Mask-group-2-1.webp";
 import news from "./Health.jpeg";
 import about2 from "./Image_fx-3.png"
 
-const svgPlaceholder = (label: string, w: number, h: number, bg = "#CFE7F7"): string => {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
-      <rect width="100%" height="100%" fill="${bg}"/>
-      <text x="50%" y="50%" font-family="Poppins, sans-serif" font-size="${Math.max(14, w / 18)}"
-        fill="#0E5F94" text-anchor="middle" dominant-baseline="middle">${label}</text>
-    </svg>`;
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-};
+
 export const aboutPlaceholder1 = about2;
 export const adhdPlaceholder = adhd;
 export const spravatoPlaceholder = spravato;
