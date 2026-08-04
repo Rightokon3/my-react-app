@@ -82,7 +82,7 @@ function Footer(): JSX.Element {
             <li className="flex items-center gap-2">
               <FiPhone className="flex-shrink-0" aria-hidden />
               <a href="tel:+15551234567" className="hover:text-white">
-                (555) 123-4567
+                (952) 295-9448
               </a>
             </li>
             <li className="flex items-center gap-2">

@@ -248,7 +248,7 @@ function Header(): JSX.Element {
             <FiPhoneCall size={16} aria-hidden />
             <span className="text-left leading-tight">
               <span className="block text-[10px] font-medium uppercase">Call Us:</span>
-              <span className="block text-sm font-bold">(555) 123-4567</span>
+              <span className="block text-sm font-bold">(952) 295-9448</span>
             </span>
           </a>
         </div>
