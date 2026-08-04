@@ -17,8 +17,8 @@ function StaffAnnouncement(): JSX.Element {
           <p className="text-base sm:text-lg font-medium opacity-90 mb-1">
             Welcome our New Psychotherapist
           </p>
-          <p className="text-3xl sm:text-5xl font-bold leading-tight mb-1">Dr. Amara Bello</p>
-          <p className="text-base sm:text-xl opacity-85">PMHNP-BC, LICSW</p>
+          <p className="text-3xl sm:text-5xl font-bold leading-tight mb-1">Dara Awosika </p>
+          <p className="text-base sm:text-xl opacity-85">BSW , MSW , LICSW</p>
         </motion.div>
 
         <motion.img
@@ -27,7 +27,7 @@ function StaffAnnouncement(): JSX.Element {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           src={doctorPlaceholder}
-          alt="Portrait of Dr. Amara Bello"
+          alt="Portrait of Dara Awosika "
           className="absolute right-4 sm:right-10 lg:right-16 -top-8 sm:-top-12 z-10 h-52 sm:h-72 lg:h-80 w-40 sm:w-56 lg:w-64 rounded-2xl object-cover shadow-card"
           loading="lazy"
         />
